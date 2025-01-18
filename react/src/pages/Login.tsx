@@ -12,7 +12,7 @@ const Login = () => {
   console.log(data)
   return ( 
     <div>
-      
+      Login page
     </div>
    );
 }
