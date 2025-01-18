@@ -1,6 +1,13 @@
-import { ChangeEvent, FormEvent, FormEventHandler, useRef, useState } from "react";
+import {
+  ChangeEvent,
+  FormEvent,
+  FormEventHandler,
+  useRef,
+  useState,
+} from "react";
 import { fetchData } from "../utils/fetchData";
 import { useStateContext } from "../contexts/ContextProvider";
+import { Link } from "react-router-dom";
 
 const Register = () => {
   const [formData, setFormData] = useState({
@@ -9,7 +16,7 @@ const Register = () => {
     password: "",
   });
 
-  const { setToken, setUser } = useStateContext()
+  const { setToken, setUser } = useStateContext();
 
   const handleChange = (e: ChangeEvent<HTMLInputElement>) => {
     const { name, value } = e.target;
@@ -22,17 +29,16 @@ const Register = () => {
   const handleSubmit = (e: FormEvent<HTMLFormElement>) => {
     e.preventDefault();
     const payload = formData;
-    console.log(payload)
+    console.log(payload);
     const data = fetchData({
       urlParams: "api/register",
       method: "POST",
-      body: payload
+      body: payload,
     }).then((data) => {
       setToken(data.token);
-      setUser(data.user)
-    })
-    
-    
+      setUser(data.user);
+    });
+
     // console.log("registerr", data)
     // Add your API call here
   };
@@ -53,7 +59,6 @@ const Register = () => {
               type="text"
               id="name"
               name="name"
-              
               value={formData.name}
               onChange={handleChange}
               required
@@ -118,6 +123,12 @@ const Register = () => {
             Register
           </button>
         </form>
+        <p className="mt-4 text-sm text-center text-gray-600">
+          Allready have an account?{" "}
+          <Link to={"/login"} className="text-blue-600 hover:underline">
+            Login
+          </Link>
+        </p>
       </div>
     </div>
   );
